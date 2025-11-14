@@ -22,7 +22,15 @@ USE astrnt_db;
 
 ### 2. Verify or Create the `cwa_users` Table
 
-The application expects a table named `cwa_users` with at least the following columns:
+The application expects a table named `cwa_users` with at least the following columns.
+
+**Quick Setup:** Use the provided SQL schema file:
+
+```bash
+mysql -u root -p < database/schema.sql
+```
+
+Or create the table manually:
 
 ```sql
 CREATE TABLE IF NOT EXISTS cwa_users (
@@ -38,7 +46,15 @@ CREATE TABLE IF NOT EXISTS cwa_users (
 
 The password in this table should be hashed using Laravel's bcrypt (which is compatible with bcryptjs). If you're creating users manually for testing:
 
-**Using Node.js (with this project):**
+**Option 1: Using the provided hash generator script:**
+
+```bash
+node database/generate-hash.js your_password_here
+```
+
+This will output a bcrypt hash that you can use in your INSERT statement.
+
+**Option 2: Using Node.js directly (with this project):**
 
 You can use the following Node.js script to generate a bcrypt hash:
 
@@ -53,14 +69,9 @@ async function hashPassword(password) {
 hashPassword('your_password_here');
 ```
 
-Then insert the user:
+Save this as a `.js` file and run it with `node filename.js`.
 
-```sql
-INSERT INTO cwa_users (email, password) 
-VALUES ('admin@example.com', '$2a$10$hashed_password_here');
-```
-
-**Using Laravel/PHP:**
+**Option 3: Using Laravel/PHP:**
 
 ```php
 $password = Hash::make('your_password');

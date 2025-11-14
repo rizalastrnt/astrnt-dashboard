@@ -56,6 +56,15 @@ CREATE TABLE cwa_users (
 
 Passwords must be hashed using bcrypt (compatible with Laravel's `Hash::make()`).
 
+**Quick Setup:**
+```bash
+# Create database and table
+mysql -u root -p < database/schema.sql
+
+# Generate password hash
+node database/generate-hash.js your_password
+```
+
 ## Scripts
 
 - `npm run dev` - Start development server
